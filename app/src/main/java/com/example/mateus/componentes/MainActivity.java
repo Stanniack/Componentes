@@ -1,6 +1,8 @@
 package com.example.mateus.componentes;
 
 import android.graphics.Color;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,12 +22,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Mapeamento
         mViewHolder.mButtonToast = (Button) findViewById(R.id.toast_button);
+        mViewHolder.mButtonSnackBar = (Button) findViewById(R.id.snackbar_button);
+        mViewHolder.mConstraintLayout = (ConstraintLayout) findViewById(R.id.constraint_layout);
 
         this.setListener();
     }
 
     private void setListener(){
         mViewHolder.mButtonToast.setOnClickListener(this);
+        mViewHolder.mButtonSnackBar.setOnClickListener(this);
     }
 
     @Override
@@ -54,11 +59,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //view.setBackgroundColor(Color.BLACK);
 
             toast.show();
+
+        }else if(v.getId() == R.id.snackbar_button){
+
+            Snackbar.make(mViewHolder.mConstraintLayout, "Snackbar Motherfucker!", Snackbar.LENGTH_LONG).show();
         }
     }
 
     private static class ViewHolder{
-        private  Button mButtonToast;
+        private Button mButtonToast;
+        private Button mButtonSnackBar;
+        private ConstraintLayout mConstraintLayout;
     }
 
 }
