@@ -1,6 +1,7 @@
 package com.example.mateus.componentes;
 
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -62,7 +63,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }else if(v.getId() == R.id.snackbar_button){
 
-            Snackbar.make(mViewHolder.mConstraintLayout, "Snackbar Motherfucker!", Snackbar.LENGTH_LONG).show();
+            Snackbar snackbar = Snackbar.make(mViewHolder.mConstraintLayout, "Snackbar Motherfucker!", Snackbar.LENGTH_LONG);
+
+            snackbar.setAction("Desfazer", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Snackbar.make(mViewHolder.mConstraintLayout, "Desfeito com sucesso", Snackbar.LENGTH_LONG).show();
+                }
+            });
+
+            TextView textView = (TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text);
+            textView.setTextColor(Color.BLACK);
+
+            View view = snackbar.getView();
+            view.setBackgroundColor(Color.BLUE);
+
+
+            snackbar.show();
+
         }
     }
 
