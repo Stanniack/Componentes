@@ -1,7 +1,6 @@
 package com.example.mateus.componentes;
 
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -9,9 +8,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     ViewHolder mViewHolder = new ViewHolder();
@@ -25,13 +29,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mViewHolder.mButtonToast = (Button) findViewById(R.id.toast_button);
         mViewHolder.mButtonSnackBar = (Button) findViewById(R.id.snackbar_button);
         mViewHolder.mConstraintLayout = (ConstraintLayout) findViewById(R.id.constraint_layout);
+        mViewHolder.mSpinnerDynamic = (Spinner) findViewById(R.id.dynamic_spinner);
 
         this.setListener();
+        this.carregaSpinners();
     }
 
     private void setListener(){
         mViewHolder.mButtonToast.setOnClickListener(this);
         mViewHolder.mButtonSnackBar.setOnClickListener(this);
+    }
+
+    private void carregaSpinners(){
+        List<String> lista = new ArrayList<>();
+        lista.add("Purreta dinâmica");
+        lista.add("Cry me a river");
+        lista.add("Jurassic World Evolution");
+
+        // Cria o adapter do spinner: contexto, layout padrão, lista de objetos
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lista);
+        mViewHolder.mSpinnerDynamic.setAdapter(adapter);
+
     }
 
     @Override
@@ -63,8 +81,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }else if(v.getId() == R.id.snackbar_button){
 
+            // Cria snackbar
             Snackbar snackbar = Snackbar.make(mViewHolder.mConstraintLayout, "Snackbar Motherfucker!", Snackbar.LENGTH_LONG);
 
+            // Button snackbar interativo, como "Desfazer"
             snackbar.setAction("Desfazer", new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -72,9 +92,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
 
+            // Muda cor do texto
             TextView textView = (TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text);
             textView.setTextColor(Color.BLACK);
 
+            // Muda cor do background do snack
             View view = snackbar.getView();
             view.setBackgroundColor(Color.BLUE);
 
@@ -84,10 +106,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+
     private static class ViewHolder{
         private Button mButtonToast;
         private Button mButtonSnackBar;
         private ConstraintLayout mConstraintLayout;
+        private Spinner mSpinnerDynamic;
     }
 
 }
