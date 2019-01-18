@@ -5,9 +5,11 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -17,7 +19,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     ViewHolder mViewHolder = new ViewHolder();
 
     @Override
@@ -28,16 +30,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Mapeamento
         mViewHolder.mButtonToast = (Button) findViewById(R.id.toast_button);
         mViewHolder.mButtonSnackBar = (Button) findViewById(R.id.snackbar_button);
+        mViewHolder.mButtonSetSpinner = (Button) findViewById(R.id.set_spinner);
+        mViewHolder.mButtonGetSpinner = (Button) findViewById(R.id.get_spinner);
         mViewHolder.mConstraintLayout = (ConstraintLayout) findViewById(R.id.constraint_layout);
         mViewHolder.mSpinnerDynamic = (Spinner) findViewById(R.id.dynamic_spinner);
 
-        this.setListener();
-        this.carregaSpinners();
     }
 
     private void setListener(){
         mViewHolder.mButtonToast.setOnClickListener(this);
         mViewHolder.mButtonSnackBar.setOnClickListener(this);
+        mViewHolder.mButtonSetSpinner.setOnClickListener(this);
+        mViewHolder.mButtonGetSpinner.setOnClickListener(this);
     }
 
     private void carregaSpinners(){
@@ -51,6 +55,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mViewHolder.mSpinnerDynamic.setAdapter(adapter);
 
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        this.setListener();
+        this.carregaSpinners();
+
+        // On item selected listener
+        this.mViewHolder.mSpinnerDynamic.setOnItemSelectedListener(this);
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -103,13 +119,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             snackbar.show();
 
+        }else if(v.getId() == R.id.get_spinner){
+            // Pega o que está selecionado no spinner
+            String value = mViewHolder.mSpinnerDynamic.getSelectedItem().toString();
+
+            Snackbar.make(mViewHolder.mSpinnerDynamic, value, Snackbar.LENGTH_LONG).show();
+
+
+        }else if(v.getId() == R.id.set_spinner){
+            mViewHolder.mSpinnerDynamic.setSelection(2);
+
         }
+    }
+
+
+    // Ao clicar no item selecionado, os métodos são disparados
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // pega o valor selecionado do spinner
+        String value = parent.getItemAtPosition(position).toString();
+        //escreve no toast o valor selecionado
+        Toast.makeText(this, value, Toast.LENGTH_LONG).show();
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 
 
     private static class ViewHolder{
         private Button mButtonToast;
         private Button mButtonSnackBar;
+        private Button mButtonSetSpinner;
+        private Button mButtonGetSpinner;
         private ConstraintLayout mConstraintLayout;
         private Spinner mSpinnerDynamic;
     }

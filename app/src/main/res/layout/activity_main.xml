@@ -44,4 +44,30 @@
         app:layout_constraintLeft_toLeftOf="parent"
         />
 
+    <LinearLayout
+        android:id="@+id/linear_layout_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/dynamic_spinner"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <Button
+            android:id="@+id/get_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Get Spinner value"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/set_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Set Spinner value"
+            android:layout_weight="1"/>
+
+
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
