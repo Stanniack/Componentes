@@ -10,4 +10,5 @@
         <item>Tentar terminar esse curso antes de acabar as férias?</item>
 
     </string-array>
+    <string name="title_activity_date">DateActivity</string>
 </resources>
