@@ -49,6 +49,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@+id/dynamic_spinner"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent">
@@ -69,5 +70,83 @@
 
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button_progress_dialog"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Progress dialog - Depreciated"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/linear_layout_spinner"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <ProgressBar
+        android:id="@+id/indeterminateBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_bias="0.33"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_progress_dialog" />
+
+    <ProgressBar
+        android:id="@+id/determinateBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/button_progress_dialog"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:progress="50"
+        />
+
+    <SeekBar
+        android:id="@+id/seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:max="200"
+        app:layout_constraintTop_toBottomOf="@+id/determinateBar"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <TextView
+        android:id="@+id/text_seek"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Progresso seekbar"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/seekbar"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_seek"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/text_seek"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <Button
+            android:id="@+id/get_seek"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Get Seek value"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/set_seek"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Set Seek value"
+            android:layout_weight="1"/>
+
+
+    </LinearLayout>
+
+
 
 </android.support.constraint.ConstraintLayout>

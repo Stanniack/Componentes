@@ -1,17 +1,18 @@
 package com.example.mateus.componentes;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +20,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,
+        AdapterView.OnItemSelectedListener, SeekBar.OnSeekBarChangeListener {
     ViewHolder mViewHolder = new ViewHolder();
 
     @Override
@@ -28,12 +30,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         // Mapeamento
+        mViewHolder.mTextSeek = (TextView) findViewById(R.id.text_seek);
         mViewHolder.mButtonToast = (Button) findViewById(R.id.toast_button);
         mViewHolder.mButtonSnackBar = (Button) findViewById(R.id.snackbar_button);
         mViewHolder.mButtonSetSpinner = (Button) findViewById(R.id.set_spinner);
         mViewHolder.mButtonGetSpinner = (Button) findViewById(R.id.get_spinner);
+        mViewHolder.mButtonProgressDialog = (Button) findViewById(R.id.button_progress_dialog);
+        mViewHolder.mButtonGetSeek = (Button) findViewById(R.id.get_seek);
+        mViewHolder.mButtonSetSeek = (Button) findViewById(R.id.set_seek);
         mViewHolder.mConstraintLayout = (ConstraintLayout) findViewById(R.id.constraint_layout);
         mViewHolder.mSpinnerDynamic = (Spinner) findViewById(R.id.dynamic_spinner);
+        mViewHolder.mSeekbar = (SeekBar) findViewById(R.id.seekbar);
+        mViewHolder.mProgressDialog = new ProgressDialog(this);
 
     }
 
@@ -42,6 +50,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mViewHolder.mButtonSnackBar.setOnClickListener(this);
         mViewHolder.mButtonSetSpinner.setOnClickListener(this);
         mViewHolder.mButtonGetSpinner.setOnClickListener(this);
+        mViewHolder.mButtonGetSeek.setOnClickListener(this);
+        mViewHolder.mButtonSetSeek.setOnClickListener(this);
+        mViewHolder.mButtonProgressDialog.setOnClickListener(this);
     }
 
     private void carregaSpinners(){
@@ -65,6 +76,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // On item selected listener
         this.mViewHolder.mSpinnerDynamic.setOnItemSelectedListener(this);
+
+        // On Seek bar change listener
+        this.mViewHolder.mSeekbar.setOnSeekBarChangeListener(this);
     }
 
 
@@ -129,6 +143,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else if(v.getId() == R.id.set_spinner){
             mViewHolder.mSpinnerDynamic.setSelection(2);
 
+        }else if(v.getId() == R.id.button_progress_dialog){
+            mViewHolder.mProgressDialog.setTitle("Progress Dialog - Depreciated!");
+            mViewHolder.mProgressDialog.setMessage("Infelizmente está em desuso, testar notificações ou ProgressBar " +
+                    "(ver comentários videoaula deste assunto");
+            mViewHolder.mProgressDialog.show();
+
+        }else if(v.getId() == R.id.get_seek){
+            // Pega progresso e joga na tela
+            int value = mViewHolder.mSeekbar.getProgress();
+            Toast.makeText(this, String.valueOf(value), Toast.LENGTH_LONG).show();
+
+        }else if(v.getId() == R.id.set_seek){
+            mViewHolder.mSeekbar.setProgress(50);
         }
     }
 
@@ -148,14 +175,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    // Quando o valor do seekbar for alterado
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+        // se for o seekbar que estou mexendo, faça
+        if(seekBar.getId() == R.id.seekbar){
+            this.mViewHolder.mTextSeek.setText(String.valueOf(progress));
+        }
+
+    }
+
+    // quando o touch estiver em cima
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+    }
+
+    // quando o touch não estiver em cima
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
+    }
+
 
     private static class ViewHolder{
+        private TextView mTextSeek;
         private Button mButtonToast;
         private Button mButtonSnackBar;
         private Button mButtonSetSpinner;
         private Button mButtonGetSpinner;
+        private Button mButtonSetSeek;
+        private Button mButtonGetSeek;
+        private SeekBar mSeekbar;
+        private Button mButtonProgressDialog;
         private ConstraintLayout mConstraintLayout;
         private Spinner mSpinnerDynamic;
+        private ProgressDialog mProgressDialog;
+
     }
 
 }
