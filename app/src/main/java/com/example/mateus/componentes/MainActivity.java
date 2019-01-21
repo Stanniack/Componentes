@@ -1,6 +1,7 @@
 package com.example.mateus.componentes;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
@@ -183,6 +184,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(seekBar.getId() == R.id.seekbar){
             this.mViewHolder.mTextSeek.setText(String.valueOf(progress));
         }
+
+
 
     }
 
